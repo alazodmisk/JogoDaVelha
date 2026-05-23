@@ -1,6 +1,7 @@
 package br.com.jogovelha.controller;
 
 import br.com.jogovelha.model.Jogador;
+import br.com.jogovelha.model.Tabuleiro;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,6 +11,26 @@ public class JogoDaVelhaController {
     //Cadastra jogada
     Scanner scanner = new Scanner(System.in);
     ArrayList<Jogador> jogadores = new ArrayList<>(2);
+    Tabuleiro tabuleiro = new Tabuleiro();
+
+
+    public void jogoDaVelha(){
+        int op = 0;
+
+        do{
+            System.out.println("====Jogo Da Velha====");
+
+            System.out.println("1 = Iniciar Jogo");
+        }while (true);
+    }
+
+
+
+    public void criarJogo(){
+        cadastrarJogador();
+        cadastrarJogador();
+    }
+
 
     public void cadastrarJogador(){
         String nome;
@@ -32,7 +53,16 @@ public class JogoDaVelhaController {
         }
     }
 
-    public void cadastrarJogada(char Simbolo){
 
+    public void cadastrarJogada(char posicao){
+        if(jogadores.get(0).isTurno()){
+            tabuleiro.trocarSimbolo(posicao, jogadores.get(0).getSimbolo());
+        }else{
+            tabuleiro.trocarSimbolo(posicao, jogadores.get(1).getSimbolo());
+        }
+
+        for(Jogador i : jogadores){
+            i.trocaTurno();
+        }
     }
 }
