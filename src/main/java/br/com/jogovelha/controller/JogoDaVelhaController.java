@@ -2,28 +2,46 @@ package br.com.jogovelha.controller;
 
 import br.com.jogovelha.model.Jogador;
 import br.com.jogovelha.model.Tabuleiro;
+import br.com.jogovelha.view.JogoDaVelhaView;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class JogoDaVelhaController {
-    //Cadastra jogador
-    //Cadastra jogada
+
     Scanner scanner = new Scanner(System.in);
     ArrayList<Jogador> jogadores = new ArrayList<>(2);
+
     Tabuleiro tabuleiro = new Tabuleiro();
+    JogoDaVelhaView jogoDaVelhaView = new JogoDaVelhaView();
 
 
     public void jogoDaVelha(){
         int op = 0;
+        System.out.println("====Jogo Da Velha====");
+        System.out.println("1 = Iniciar Jogo");
+        op = Integer.parseInt(scanner.nextLine());
+        if (op == 1){
+            criarJogo();
+        }
 
         do{
-            System.out.println("====Jogo Da Velha====");
+            jogoDaVelhaView.imprimeTabuleiro(tabuleiro);
+            char pos;
 
-            System.out.println("1 = Iniciar Jogo");
+
+            if(jogadores.get(0).isTurno()){
+                System.out.println("Digite a posição que queira colocar o X");
+                pos = scanner.nextLine().charAt(0);
+                cadastrarJogada(pos);
+            }else{
+                System.out.println("Digite a posição que queira colocar o O");
+                pos = scanner.nextLine().charAt(0);
+                cadastrarJogada(pos);
+            }
+
         }while (true);
     }
-
 
 
     public void criarJogo(){
@@ -64,5 +82,7 @@ public class JogoDaVelhaController {
         for(Jogador i : jogadores){
             i.trocaTurno();
         }
+
+        jogoDaVelhaView.imprimeTabuleiro(tabuleiro);
     }
 }
