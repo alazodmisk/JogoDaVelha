@@ -1,6 +1,7 @@
 package br.com.jogovelha.controller;
 
 import br.com.jogovelha.model.Jogador;
+import br.com.jogovelha.model.StatusPartida;
 import br.com.jogovelha.model.Tabuleiro;
 import br.com.jogovelha.view.JogoDaVelhaView;
 
@@ -14,6 +15,7 @@ public class JogoDaVelhaController {
 
     Tabuleiro tabuleiro = new Tabuleiro();
     JogoDaVelhaView jogoDaVelhaView = new JogoDaVelhaView();
+    StatusPartida statusPartida = new StatusPartida();
 
 
     public void jogoDaVelha(){
@@ -21,26 +23,27 @@ public class JogoDaVelhaController {
         System.out.println("====Jogo Da Velha====");
         System.out.println("1 = Iniciar Jogo");
         op = Integer.parseInt(scanner.nextLine());
+
         if (op == 1){
             criarJogo();
+            do{
+                jogoDaVelhaView.imprimeTabuleiro(tabuleiro);
+                char pos;
+
+                if(jogadores.get(0).isTurno()){
+                    System.out.println("Digite a posição que queira colocar o X");
+                    pos = scanner.nextLine().charAt(0);
+                    cadastrarJogada(pos);
+                }else{
+                    System.out.println("Digite a posição que queira colocar o O");
+                    pos = scanner.nextLine().charAt(0);
+                    cadastrarJogada(pos);
+                }
+
+                statusPartida.verificaStatus();
+
+            }while (true);
         }
-
-        do{
-            jogoDaVelhaView.imprimeTabuleiro(tabuleiro);
-            char pos;
-
-
-            if(jogadores.get(0).isTurno()){
-                System.out.println("Digite a posição que queira colocar o X");
-                pos = scanner.nextLine().charAt(0);
-                cadastrarJogada(pos);
-            }else{
-                System.out.println("Digite a posição que queira colocar o O");
-                pos = scanner.nextLine().charAt(0);
-                cadastrarJogada(pos);
-            }
-
-        }while (true);
     }
 
 
