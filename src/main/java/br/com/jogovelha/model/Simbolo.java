@@ -1,7 +1,7 @@
 package br.com.jogovelha.model;
 
 public enum Simbolo {
-    N,
+    N, //simbolo de posição Nula
     X,
     O
 }

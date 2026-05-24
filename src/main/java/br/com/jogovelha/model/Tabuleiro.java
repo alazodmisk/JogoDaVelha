@@ -8,26 +8,76 @@ public class Tabuleiro {
             {Simbolo.N, Simbolo.N, Simbolo.N}
     };
 
-    public void trocarSimbolo(char posicao, Jogador jogador){
+    //se a posição foi inserida retora true, caso contrario false
+    public boolean trocarSimbolo(int posicao, Jogador jogador){
+
         switch (posicao){
-            case '1':
-                tabuleiro[1][1] = jogador.getSimbolo();
-            case '2':
-                tabuleiro[1][2] = jogador.getSimbolo();
-            case '3':
-                tabuleiro[1][3] = jogador.getSimbolo();
-            case '4':
-                tabuleiro[2][1] = jogador.getSimbolo();
-            case '5':
-                tabuleiro[2][2] = jogador.getSimbolo();
-            case'6':
-                tabuleiro[2][3] = jogador.getSimbolo();
-            case '7':
-                tabuleiro[3][1] = jogador.getSimbolo();
-            case '8':
-                tabuleiro[3][2] = jogador.getSimbolo();
-            case '9':
-                tabuleiro[3][3] = jogador.getSimbolo();
+            case 1:
+                if (tabuleiro[1][1] != Simbolo.N){
+                    return false;
+                }else{
+                    tabuleiro[1][1] = jogador.getSimbolo();
+                    return true;
+                }
+            case 2:
+                if (tabuleiro[1][2] != Simbolo.N){
+                    return false;
+                }else{
+                    tabuleiro[1][2] = jogador.getSimbolo();
+                    return true;
+                }
+
+            case 3:
+                if (tabuleiro[1][3] != Simbolo.N){
+                    return false;
+                }else{
+                    tabuleiro[1][3] = jogador.getSimbolo(); 
+                    return true;
+                }
+            case 4:
+                if (tabuleiro[2][1] != Simbolo.N){
+                    return false;
+                }else{
+                    tabuleiro[2][1] = jogador.getSimbolo();
+                    return true;
+                }
+            case 5:
+                if (tabuleiro[2][2] != Simbolo.N){
+                    return false;
+                }else{
+                    tabuleiro[2][2] = jogador.getSimbolo();
+                    return true;
+                }
+            case 6:
+                if (tabuleiro[2][3] != Simbolo.N){
+                    return false;
+                }else{
+                    tabuleiro[2][3] = jogador.getSimbolo();
+                    return true;
+                }
+            case 7:
+                if (tabuleiro[3][1] != Simbolo.N){
+                    return false;
+                }else{
+                    tabuleiro[3][1] = jogador.getSimbolo();
+                    return true;
+                }
+            case 8:
+                if (tabuleiro[3][2] != Simbolo.N){
+                    return false;
+                }else{
+                    tabuleiro[3][2] = jogador.getSimbolo();
+                    return true;
+                }
+            case 9:
+                if (tabuleiro[3][3] != Simbolo.N){
+                    return false;
+                }else{
+                    tabuleiro[3][3] = jogador.getSimbolo();
+                    return true;
+                }
+            default:
+                return false;
         }
     }
 }
