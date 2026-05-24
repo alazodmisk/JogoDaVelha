@@ -1,8 +1,7 @@
 package br.com.jogovelha.model;
 
-public class StatusPartida {
-
-    public void verificaStatus(){
-        //vencedor ou empate
-    }
+public enum StatusPartida {
+    EM_ANDAMENTO,
+    EMPATE,
+    VITORIA
 }

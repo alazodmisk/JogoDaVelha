@@ -2,22 +2,22 @@ package br.com.jogovelha.model;
 
 public class Jogador {
     private String nome;
-    private char simbolo;
+    private Simbolo simbolo;
     private boolean turno;
 
 
-    public Jogador(String nome, char simbolo, boolean turno) {
+    public Jogador(String nome, Simbolo simbolo, boolean turno) {
         this.nome = nome;
         this.simbolo = simbolo;
         this.turno = turno;
     }
 
 
-    public char getSimbolo() {
+    public Simbolo getSimbolo() {
         return simbolo;
     }
 
-    public void setSimbolo(char simbolo) {
+    public void setSimbolo(Simbolo simbolo) {
         this.simbolo = simbolo;
     }
 

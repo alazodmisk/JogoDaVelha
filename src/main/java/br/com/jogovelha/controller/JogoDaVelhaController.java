@@ -1,12 +1,12 @@
 package br.com.jogovelha.controller;
 
-import br.com.jogovelha.model.Jogador;
-import br.com.jogovelha.model.StatusPartida;
-import br.com.jogovelha.model.Tabuleiro;
-import br.com.jogovelha.view.JogoDaVelhaView;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import br.com.jogovelha.model.Jogador;
+import br.com.jogovelha.model.Simbolo;
+import br.com.jogovelha.model.Tabuleiro;
+import br.com.jogovelha.view.JogoDaVelhaView;
 
 public class JogoDaVelhaController {
 
@@ -15,7 +15,6 @@ public class JogoDaVelhaController {
 
     Tabuleiro tabuleiro = new Tabuleiro();
     JogoDaVelhaView jogoDaVelhaView = new JogoDaVelhaView();
-    StatusPartida statusPartida = new StatusPartida();
 
 
     public void jogoDaVelha(){
@@ -40,7 +39,7 @@ public class JogoDaVelhaController {
                     cadastrarJogada(pos);
                 }
 
-                statusPartida.verificaStatus();
+                // statusPartida.verificaStatus();
 
             }while (true);
         }
@@ -55,7 +54,7 @@ public class JogoDaVelhaController {
 
     public void cadastrarJogador(){
         String nome;
-        char simbolo;
+        Simbolo simbolo;
 
         System.out.println("==============");
         System.out.println("Digite seu nome: ");
@@ -63,12 +62,12 @@ public class JogoDaVelhaController {
 
         if(jogadores.isEmpty()){
             System.out.println("Seu símbolo de jogo será o X");
-            simbolo = 'X';
+            simbolo = Simbolo.X;
             Jogador j1 = new Jogador(nome, simbolo, true);
             jogadores.add(j1);
         }else{
             System.out.println("Seu símbolo de jogo será o O");
-            simbolo = 'O';
+            simbolo = Simbolo.O;
             Jogador j2 = new Jogador(nome, simbolo, false);
             jogadores.add(j2);
         }
@@ -77,9 +76,9 @@ public class JogoDaVelhaController {
 
     public void cadastrarJogada(char posicao){
         if(jogadores.get(0).isTurno()){
-            tabuleiro.trocarSimbolo(posicao, jogadores.get(0).getSimbolo());
+            tabuleiro.trocarSimbolo(posicao, jogadores.get(0));
         }else{
-            tabuleiro.trocarSimbolo(posicao, jogadores.get(1).getSimbolo());
+            tabuleiro.trocarSimbolo(posicao, jogadores.get(1));
         }
 
         for(Jogador i : jogadores){

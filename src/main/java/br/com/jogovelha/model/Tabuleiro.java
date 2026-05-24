@@ -2,32 +2,32 @@ package br.com.jogovelha.model;
 
 public class Tabuleiro {
 
-    private char[][] tabuleiro ={
-            {'1', '2', '3'},
-            {'4', '5', '6'},
-            {'7', '8', '9'}
+    private Simbolo[][] tabuleiro = {
+            {Simbolo.N, Simbolo.N, Simbolo.N},
+            {Simbolo.N, Simbolo.N, Simbolo.N},
+            {Simbolo.N, Simbolo.N, Simbolo.N}
     };
 
-    public void trocarSimbolo(char posicao, char simbolo){
+    public void trocarSimbolo(char posicao, Jogador jogador){
         switch (posicao){
             case '1':
-                tabuleiro[1][1] = simbolo;
+                tabuleiro[1][1] = jogador.getSimbolo();
             case '2':
-                tabuleiro[1][2] = simbolo;
+                tabuleiro[1][2] = jogador.getSimbolo();
             case '3':
-                tabuleiro[1][3] = simbolo;
+                tabuleiro[1][3] = jogador.getSimbolo();
             case '4':
-                tabuleiro[2][1] = simbolo;
+                tabuleiro[2][1] = jogador.getSimbolo();
             case '5':
-                tabuleiro[2][2] = simbolo;
+                tabuleiro[2][2] = jogador.getSimbolo();
             case'6':
-                tabuleiro[2][3] = simbolo;
+                tabuleiro[2][3] = jogador.getSimbolo();
             case '7':
-                tabuleiro[3][1] = simbolo;
+                tabuleiro[3][1] = jogador.getSimbolo();
             case '8':
-                tabuleiro[3][2] = simbolo;
+                tabuleiro[3][2] = jogador.getSimbolo();
             case '9':
-                tabuleiro[3][3] = simbolo;
+                tabuleiro[3][3] = jogador.getSimbolo();
         }
     }
 }
