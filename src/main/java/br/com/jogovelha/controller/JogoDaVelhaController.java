@@ -1,6 +1,4 @@
 package br.com.jogovelha.controller;
-import java.util.Scanner;
-
 import br.com.jogovelha.model.Jogador;
 import br.com.jogovelha.model.Simbolo;
 import br.com.jogovelha.model.StatusPartida;
@@ -9,23 +7,40 @@ import br.com.jogovelha.view.JogoDaVelhaView;
 
 public class JogoDaVelhaController {
 
-    Scanner scanner = new Scanner(System.in);
-
     Tabuleiro tabuleiro = new Tabuleiro();
-    JogoDaVelhaView jogoDaVelhaView = new JogoDaVelhaView();
+    JogoDaVelhaView view;
     Jogador jogador1;
     Jogador jogador2;
     Jogador jogadorVencedor;
     StatusPartida status;
 
-    public Jogador cadastrarJogador(String nome, Simbolo simbolo){
+    public Jogador cadastrarJogador(Simbolo simbolo){
+        String nome = view.cadastrarJogador(simbolo);
         Jogador jogador = new Jogador(nome, simbolo);
         return jogador;
     }
 
-    public void realizarjogada(int linha, int coluna){
+    public void realizarjogada(){
+        int linha;
+        int coluna;
+
+        if(jogador1.isTurno()){
+            linha = view.solicitarLinha(jogador1.getNome());
+            coluna = view.solicitarColuna(jogador1.getNome());
+        }else{
+            linha = view.solicitarLinha(jogador2.getNome());
+            coluna = view.solicitarColuna(jogador2.getNome());
+        }
+    
         while (!tabuleiro.validaJogada(linha, coluna)){
-            //JogoDaVelhaView.solicitarJogada();
+            view.jogadaInvalida();
+            if(jogador1.isTurno()){
+                linha = view.solicitarLinha(jogador1.getNome());
+                coluna = view.solicitarColuna(jogador1.getNome());
+            }else{
+                linha = view.solicitarLinha(jogador2.getNome());
+                coluna = view.solicitarColuna(jogador2.getNome());
+            }
         }
 
         if(jogador1.isTurno()){
@@ -39,14 +54,19 @@ public class JogoDaVelhaController {
     }
 
     public void jogoDaVelha(){
-        //this.jogador1 = jogoDaVelhaView.cadastrarJogador();
-        //this.jogador2 = jogoDaVelhaView.cadastrarJogador();
+        this.setJogador1(this.cadastrarJogador(Simbolo.X));
+        this.setJogador2(this.cadastrarJogador(Simbolo.O));
+
+        jogador1.trocaTurno();
 
         this.setStatus(StatusPartida.EM_ANDAMENTO);
 
         while (this.getStatus() == StatusPartida.EM_ANDAMENTO){
-            //jogoDaVelhaView.solicitarJogada();
 
+            view.imprimeTabuleiro(tabuleiro.getTabuleiro());
+            this.realizarjogada();
+            view.imprimeTabuleiro(tabuleiro.getTabuleiro());
+        
             Simbolo simboloVencedor = tabuleiro.verificaVencedor();
 
             if(simboloVencedor == jogador1.getSimbolo()){
@@ -66,7 +86,7 @@ public class JogoDaVelhaController {
             }
         }
 
-        //jogoDaVelhaView.exibeResultado(jogadorVencedor);
+        view.exibeResultado(jogadorVencedor.getNome());
     }
 
     public Jogador getJogador1() {
@@ -99,5 +119,13 @@ public class JogoDaVelhaController {
 
     public void setJogadorVencedor(Jogador jogadorVencedor) {
         this.jogadorVencedor = jogadorVencedor;
+    }
+
+    public JogoDaVelhaView getview() {
+        return view;
+    }
+
+    public void setView(JogoDaVelhaView view) {
+        this.view = view;
     }
 }

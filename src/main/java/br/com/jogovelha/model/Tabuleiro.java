@@ -18,22 +18,22 @@ public class Tabuleiro {
     }
 
     public Simbolo verificaVencedor(){
-        if(this.tabuleiro[1][1] == this.tabuleiro[1][2] && this.tabuleiro[1][1] == this.tabuleiro[1][3]){
-            return this.tabuleiro[1][1]; // primeira linha
-        }else if(this.tabuleiro[2][1] == this.tabuleiro[2][2] && this.tabuleiro[2][1] == this.tabuleiro[2][3]){
-            return this.tabuleiro[2][1]; // segunda linha
-        }else if (this.tabuleiro[3][1] == this.tabuleiro[3][2] && this.tabuleiro[3][1] == this.tabuleiro[3][3]) {
-            return this.tabuleiro[3][1]; // terceira linha
-        }else if (this.tabuleiro[1][1] == this.tabuleiro[2][1] && this.tabuleiro[1][1] == this.tabuleiro[3][1]) {
-            return this.tabuleiro[1][1]; // primeira coluna
-        }else if (this.tabuleiro[1][2] == this.tabuleiro[2][2] && this.tabuleiro[1][2] == this.tabuleiro[3][2]) {
-            return this.tabuleiro[1][2]; // segunda coluna
-        }else if (this.tabuleiro[1][3] == this.tabuleiro[2][3] && this.tabuleiro[1][3] == this.tabuleiro[3][3]) {
-            return this.tabuleiro[1][3]; // terceira coluna
-        }else if (this.tabuleiro[1][1] == this.tabuleiro[2][2] && this.tabuleiro[1][1] == this.tabuleiro[3][3]) {
-            return this.tabuleiro[1][1]; // diagonal da esquerda coluna
-        }else if (this.tabuleiro[1][3] == this.tabuleiro[2][2] && this.tabuleiro[1][3] == this.tabuleiro[3][1]) {
-            return this.tabuleiro[1][3]; // diagonal da direita coluna
+        if(this.tabuleiro[0][0] == this.tabuleiro[0][1] && this.tabuleiro[0][0] == this.tabuleiro[0][2]){
+            return this.tabuleiro[0][0]; // primeira linha
+        }else if(this.tabuleiro[1][0] == this.tabuleiro[1][1] && this.tabuleiro[1][0] == this.tabuleiro[1][2]){
+            return this.tabuleiro[1][0]; // segunda linha
+        }else if (this.tabuleiro[2][0] == this.tabuleiro[2][1] && this.tabuleiro[2][0] == this.tabuleiro[2][2]) {
+            return this.tabuleiro[2][0]; // terceira linha
+        }else if (this.tabuleiro[0][0] == this.tabuleiro[1][0] && this.tabuleiro[0][0] == this.tabuleiro[2][0]) {
+            return this.tabuleiro[0][0]; // primeira coluna
+        }else if (this.tabuleiro[0][1] == this.tabuleiro[1][1] && this.tabuleiro[0][1] == this.tabuleiro[2][1]) {
+            return this.tabuleiro[0][1]; // segunda coluna
+        }else if (this.tabuleiro[0][2] == this.tabuleiro[1][2] && this.tabuleiro[0][2] == this.tabuleiro[2][2]) {
+            return this.tabuleiro[0][2]; // terceira coluna
+        }else if (this.tabuleiro[0][0] == this.tabuleiro[1][1] && this.tabuleiro[0][0] == this.tabuleiro[2][2]) {
+            return this.tabuleiro[0][0]; // diagonal da esquerda coluna
+        }else if (this.tabuleiro[0][2] == this.tabuleiro[1][1] && this.tabuleiro[0][2] == this.tabuleiro[2][0]) {
+            return this.tabuleiro[0][2]; // diagonal da direita coluna
         }
         return Simbolo.N;
     }
@@ -50,7 +50,7 @@ public class Tabuleiro {
             }
         }
         
-        return this.verificaVencedor() == Simbolo.N && posicoesValida;
+        return this.verificaVencedor() == Simbolo.N && !posicoesValida;
     }
 
     public Simbolo[][] getTabuleiro() {
