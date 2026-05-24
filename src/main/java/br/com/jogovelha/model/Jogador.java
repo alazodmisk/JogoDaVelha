@@ -6,12 +6,11 @@ public class Jogador {
     private boolean turno;
 
 
-    public Jogador(String nome, Simbolo simbolo, boolean turno) {
+    public Jogador(String nome, Simbolo simbolo) {
         this.nome = nome;
         this.simbolo = simbolo;
-        this.turno = turno;
+        this.turno = false;
     }
-
 
     public Simbolo getSimbolo() {
         return simbolo;
@@ -37,14 +36,7 @@ public class Jogador {
         this.turno = turno;
     }
 
-
-    //Ao final de toda jogada válida isso aqui será chamado
-    //Depois verifica com o get isTurno para saber turno de qual jogador
     public void trocaTurno(){
-        if(isTurno()){
-            this.turno = false;
-        }else{
-            this.turno = true;
-        }
+        this.turno = !this.isTurno();
     }
 }

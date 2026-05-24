@@ -1,90 +1,103 @@
 package br.com.jogovelha.controller;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import br.com.jogovelha.model.Jogador;
 import br.com.jogovelha.model.Simbolo;
+import br.com.jogovelha.model.StatusPartida;
 import br.com.jogovelha.model.Tabuleiro;
 import br.com.jogovelha.view.JogoDaVelhaView;
 
 public class JogoDaVelhaController {
 
     Scanner scanner = new Scanner(System.in);
-    ArrayList<Jogador> jogadores = new ArrayList<>(2);
 
     Tabuleiro tabuleiro = new Tabuleiro();
     JogoDaVelhaView jogoDaVelhaView = new JogoDaVelhaView();
+    Jogador jogador1;
+    Jogador jogador2;
+    Jogador jogadorVencedor;
+    StatusPartida status;
 
+    public Jogador cadastrarJogador(String nome, Simbolo simbolo){
+        Jogador jogador = new Jogador(nome, simbolo);
+        return jogador;
+    }
+
+    public void realizarjogada(int linha, int coluna){
+        while (!tabuleiro.validaJogada(linha, coluna)){
+            //JogoDaVelhaView.solicitarJogada();
+        }
+
+        if(jogador1.isTurno()){
+            tabuleiro.trocarSimbolo(linha, coluna, this.jogador1);
+        }else{
+            tabuleiro.trocarSimbolo(linha, coluna, this.jogador2);
+        }
+
+        this.jogador1.trocaTurno();
+        this.jogador2.trocaTurno();
+    }
 
     public void jogoDaVelha(){
-        int op = 0;
-        System.out.println("====Jogo Da Velha====");
-        System.out.println("1 = Iniciar Jogo");
-        op = Integer.parseInt(scanner.nextLine());
+        //this.jogador1 = jogoDaVelhaView.cadastrarJogador();
+        //this.jogador2 = jogoDaVelhaView.cadastrarJogador();
 
-        if (op == 1){
-            criarJogo();
-            do{
-                jogoDaVelhaView.imprimeTabuleiro(tabuleiro);
-                char pos;
+        this.setStatus(StatusPartida.EM_ANDAMENTO);
 
-                if(jogadores.get(0).isTurno()){
-                    System.out.println("Digite a posição que queira colocar o X");
-                    pos = scanner.nextLine().charAt(0);
-                    cadastrarJogada(pos);
-                }else{
-                    System.out.println("Digite a posição que queira colocar o O");
-                    pos = scanner.nextLine().charAt(0);
-                    cadastrarJogada(pos);
-                }
+        while (this.getStatus() == StatusPartida.EM_ANDAMENTO){
+            //jogoDaVelhaView.solicitarJogada();
 
-                // statusPartida.verificaStatus();
+            Simbolo simboloVencedor = tabuleiro.verificaVencedor();
 
-            }while (true);
+            if(simboloVencedor == jogador1.getSimbolo()){
+                this.setJogadorVencedor(this.jogador1);
+                this.setStatus(StatusPartida.VITORIA);
+            }
+                
+            if (simboloVencedor == jogador2.getSimbolo()){
+                this.setJogadorVencedor(this.jogador1);
+                this.setStatus(StatusPartida.VITORIA);
+            }
+
+            if (tabuleiro.verificaEmpate()){
+                this.setStatus(StatusPartida.EMPATE);
+                Jogador velha = new Jogador("VELHA", Simbolo.N);
+                this.setJogadorVencedor(velha);;
+            }
         }
+
+        //jogoDaVelhaView.exibeResultado(jogadorVencedor);
     }
 
-
-    public void criarJogo(){
-        cadastrarJogador();
-        cadastrarJogador();
+    public Jogador getJogador1() {
+        return jogador1;
     }
 
-
-    public void cadastrarJogador(){
-        String nome;
-        Simbolo simbolo;
-
-        System.out.println("==============");
-        System.out.println("Digite seu nome: ");
-        nome = scanner.nextLine();
-
-        if(jogadores.isEmpty()){
-            System.out.println("Seu símbolo de jogo será o X");
-            simbolo = Simbolo.X;
-            Jogador j1 = new Jogador(nome, simbolo, true);
-            jogadores.add(j1);
-        }else{
-            System.out.println("Seu símbolo de jogo será o O");
-            simbolo = Simbolo.O;
-            Jogador j2 = new Jogador(nome, simbolo, false);
-            jogadores.add(j2);
-        }
+    public void setJogador1(Jogador jogador1) {
+        this.jogador1 = jogador1;
     }
 
+    public Jogador getJogador2() {
+        return jogador2;
+    }
 
-    public void cadastrarJogada(char posicao){
-        if(jogadores.get(0).isTurno()){
-            tabuleiro.trocarSimbolo(posicao, jogadores.get(0));
-        }else{
-            tabuleiro.trocarSimbolo(posicao, jogadores.get(1));
-        }
+    public void setJogador2(Jogador jogador2) {
+        this.jogador2 = jogador2;
+    }
 
-        for(Jogador i : jogadores){
-            i.trocaTurno();
-        }
+    public StatusPartida getStatus() {
+        return status;
+    }
 
-        jogoDaVelhaView.imprimeTabuleiro(tabuleiro);
+    public void setStatus(StatusPartida status) {
+        this.status = status;
+    }
+
+    public Jogador getJogadorVencedor() {
+        return jogadorVencedor;
+    }
+
+    public void setJogadorVencedor(Jogador jogadorVencedor) {
+        this.jogadorVencedor = jogadorVencedor;
     }
 }
