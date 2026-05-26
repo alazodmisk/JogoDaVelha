@@ -31,7 +31,7 @@ public class JogoDaVelhaController {
             linha = view.solicitarLinha(jogador2.getNome());
             coluna = view.solicitarColuna(jogador2.getNome());
         }
-    
+
         while (!tabuleiro.validaJogada(linha, coluna)){
             view.jogadaInvalida();
             if(jogador1.isTurno()){
@@ -65,24 +65,26 @@ public class JogoDaVelhaController {
 
             view.imprimeTabuleiro(tabuleiro.getTabuleiro());
             this.realizarjogada();
-            view.imprimeTabuleiro(tabuleiro.getTabuleiro());
-        
+
             Simbolo simboloVencedor = tabuleiro.verificaVencedor();
 
             if(simboloVencedor == jogador1.getSimbolo()){
                 this.setJogadorVencedor(this.jogador1);
                 this.setStatus(StatusPartida.VITORIA);
+                view.imprimeTabuleiro(tabuleiro.getTabuleiro());
             }
-                
+
             if (simboloVencedor == jogador2.getSimbolo()){
-                this.setJogadorVencedor(this.jogador1);
+                this.setJogadorVencedor(this.jogador2);
                 this.setStatus(StatusPartida.VITORIA);
+                view.imprimeTabuleiro(tabuleiro.getTabuleiro());
             }
 
             if (tabuleiro.verificaEmpate()){
                 this.setStatus(StatusPartida.EMPATE);
                 Jogador velha = new Jogador("VELHA", Simbolo.N);
                 this.setJogadorVencedor(velha);;
+                view.imprimeTabuleiro(tabuleiro.getTabuleiro());
             }
         }
 
