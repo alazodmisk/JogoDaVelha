@@ -9,6 +9,10 @@ public class Tabuleiro {
     };
 
     public boolean validaJogada(int linha, int coluna){
+        if(linha > 2 || linha < 0 || coluna > 2 || coluna < 0){
+            return false;
+        }
+        
         return this.tabuleiro[linha][coluna] == Simbolo.N;
         //verifica se a jogada é valida
     }
